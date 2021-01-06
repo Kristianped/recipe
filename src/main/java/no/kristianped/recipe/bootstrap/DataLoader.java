@@ -1,5 +1,6 @@
 package no.kristianped.recipe.bootstrap;
 
+import lombok.extern.slf4j.Slf4j;
 import no.kristianped.recipe.domain.*;
 import no.kristianped.recipe.repositories.CategoryRepository;
 import no.kristianped.recipe.repositories.RecipeRepository;
@@ -7,11 +8,13 @@ import no.kristianped.recipe.repositories.UnitOfMeasureRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -26,7 +29,9 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        log.debug("Loading Bootstrap data");
         recipeRepository.saveAll(getRecipes());
     }
 
@@ -42,7 +47,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         UnitOfMeasure eachUom = eachOptional.orElseThrow(() -> new RuntimeException("Each-uom is not found"));
         UnitOfMeasure tablespoonUom = tableSpoonOptional.orElseThrow(() -> new RuntimeException("Tablespoon-uom is not found"));
         UnitOfMeasure teaspoonUom = teaspoonOptional.orElseThrow(() -> new RuntimeException("Teaspoon-uom is not found"));
-        UnitOfMeasure dashUom = eachOptional.orElseThrow(() -> new RuntimeException("Dash-uom is not found"));
+        UnitOfMeasure dashUom = dashOptional.orElseThrow(() -> new RuntimeException("Dash-uom is not found"));
         UnitOfMeasure pintUom = pintOptional.orElseThrow(() -> new RuntimeException("Pint-uom is not found"));
         UnitOfMeasure cupUom = cupOptional.orElseThrow(() -> new RuntimeException("Cup-uom is not found"));
 
