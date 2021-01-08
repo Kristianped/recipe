@@ -1,5 +1,7 @@
 package no.kristianped.recipe.services;
 
+import no.kristianped.recipe.converters.RecipeCommandToRecipe;
+import no.kristianped.recipe.converters.RecipeToRecipeCommand;
 import no.kristianped.recipe.domain.Recipe;
 import no.kristianped.recipe.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,10 +24,16 @@ class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
