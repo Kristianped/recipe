@@ -20,6 +20,7 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
+
     @Lob
     private String directions;
 
@@ -48,5 +49,12 @@ public class Recipe {
     public void setNotes(Notes notes) {
         notes.setRecipe(this);
         this.notes = notes;
+    }
+
+    public String getDifficultyString() {
+        String s = difficulty.toString();
+        String capital = s.substring(0, 1).toUpperCase();
+
+        return capital + s.substring(1).toLowerCase();
     }
 }

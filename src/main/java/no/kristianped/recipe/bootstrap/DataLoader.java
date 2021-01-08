@@ -38,11 +38,11 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private List<Recipe> getRecipes() {
         // Get Unit of measure
         Optional<UnitOfMeasure> eachOptional = unitOfMeasureRepository.findUnitOfMeasureByDescription("Each");
-        Optional<UnitOfMeasure> tableSpoonOptional = unitOfMeasureRepository.findUnitOfMeasureByDescription("Each");
-        Optional<UnitOfMeasure> teaspoonOptional = unitOfMeasureRepository.findUnitOfMeasureByDescription("Each");
-        Optional<UnitOfMeasure> dashOptional = unitOfMeasureRepository.findUnitOfMeasureByDescription("Each");
-        Optional<UnitOfMeasure> pintOptional = unitOfMeasureRepository.findUnitOfMeasureByDescription("Each");
-        Optional<UnitOfMeasure> cupOptional = unitOfMeasureRepository.findUnitOfMeasureByDescription("Each");
+        Optional<UnitOfMeasure> tableSpoonOptional = unitOfMeasureRepository.findUnitOfMeasureByDescription("Tablespoon");
+        Optional<UnitOfMeasure> teaspoonOptional = unitOfMeasureRepository.findUnitOfMeasureByDescription("Teaspoon");
+        Optional<UnitOfMeasure> dashOptional = unitOfMeasureRepository.findUnitOfMeasureByDescription("Dash");
+        Optional<UnitOfMeasure> pintOptional = unitOfMeasureRepository.findUnitOfMeasureByDescription("Pint");
+        Optional<UnitOfMeasure> cupOptional = unitOfMeasureRepository.findUnitOfMeasureByDescription("Cup");
 
         UnitOfMeasure eachUom = eachOptional.orElseThrow(() -> new RuntimeException("Each-uom is not found"));
         UnitOfMeasure tablespoonUom = tableSpoonOptional.orElseThrow(() -> new RuntimeException("Tablespoon-uom is not found"));
@@ -58,13 +58,15 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         Category americanCategory = americanOptional.orElseThrow(() -> new RuntimeException("American category not found"));
         Category mexicanCategory = mexicanOptional.orElseThrow(() -> new RuntimeException("Mexican category not found"));
 
-
         // Yumy guac
         Recipe guacRecipe = new Recipe();
         guacRecipe.setDescription("Perfect Guacamole");
         guacRecipe.setPrepTime(10);
         guacRecipe.setCookTime(0);
         guacRecipe.setDifficulty(Difficulty.EASY);
+        guacRecipe.setServings(4);
+        guacRecipe.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
+        guacRecipe.setSource("Simply Recipes");
         guacRecipe.setDirections("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
                 "\n" +
                 "2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)" +
@@ -90,11 +92,11 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         guacRecipe
                 .addIngredient(new Ingredient("ripe avocados", new BigDecimal(2), eachUom))
-                .addIngredient(new Ingredient("Kosher salt", new BigDecimal(0.5), teaspoonUom))
+                .addIngredient(new Ingredient("kosher salt", new BigDecimal(0.5), teaspoonUom))
                 .addIngredient(new Ingredient("fresh lime juice or lemon juice", new BigDecimal(2), tablespoonUom))
                 .addIngredient(new Ingredient("minced red onion or thinly sliced green onion", new BigDecimal(2), tablespoonUom))
                 .addIngredient(new Ingredient("serrano chiles, stems and seed removed, minced", new BigDecimal(2), eachUom))
-                .addIngredient(new Ingredient("Chilantro", new BigDecimal(2), tablespoonUom))
+                .addIngredient(new Ingredient("chilantro", new BigDecimal(2), tablespoonUom))
                 .addIngredient(new Ingredient("freshly grated black pepper", new BigDecimal(2), dashUom))
                 .addIngredient(new Ingredient("ripe tomato, seeds and pulp removed", new BigDecimal(0.5), eachUom));
 
@@ -107,11 +109,12 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         tacosRecipe.setCookTime(9);
         tacosRecipe.setPrepTime(20);
         tacosRecipe.setDifficulty(Difficulty.MODERATE);
+        tacosRecipe.setServings(6);
+        tacosRecipe.setSource("Simply recipes");
+        tacosRecipe.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
         tacosRecipe.setDirections("1 Prepare a gas or charcoal grill for medium-high, direct heat.\n" +
                 "2 Make the marinade and coat the chicken: In a large bowl, stir together the chili powder, oregano, cumin, sugar, salt, garlic and orange zest. Stir in the orange juice and olive oil to make a loose paste. Add the chicken to the bowl and toss to coat all over.\n" +
                 "Set aside to marinate while the grill heats and you prepare the rest of the toppings.\n" +
-                "\n" +
-                "\n" +
                 "3 Grill the chicken: Grill the chicken for 3 to 4 minutes per side, or until a thermometer inserted into the thickest part of the meat registers 165F. Transfer to a plate and rest for 5 minutes.\n" +
                 "4 Warm the tortillas: Place each tortilla on the grill or on a hot, dry skillet over medium-high heat. As soon as you see pockets of the air start to puff up in the tortilla, turn it with tongs and heat for a few seconds on the other side.\n" +
                 "Wrap warmed tortillas in a tea towel to keep them warm until serving.\n" +
@@ -132,15 +135,15 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         tacosRecipe.setNotes(tacoNotes);
 
         tacosRecipe
-                .addIngredient(new Ingredient("Ancho Chili Powder", new BigDecimal(2), tablespoonUom))
-                .addIngredient(new Ingredient("Dried Oregano", new BigDecimal(1), teaspoonUom))
-                .addIngredient(new Ingredient("Dried Cumin", new BigDecimal(1), teaspoonUom))
-                .addIngredient(new Ingredient("Sugar", new BigDecimal(1), teaspoonUom))
-                .addIngredient(new Ingredient("Salt", new BigDecimal(".5"), teaspoonUom))
-                .addIngredient(new Ingredient("Clove of Garlic, Choppedr", new BigDecimal(1), eachUom))
+                .addIngredient(new Ingredient("ancho Chili Powder", new BigDecimal(2), tablespoonUom))
+                .addIngredient(new Ingredient("dried Oregano", new BigDecimal(1), teaspoonUom))
+                .addIngredient(new Ingredient("dried Cumin", new BigDecimal(1), teaspoonUom))
+                .addIngredient(new Ingredient("sugar", new BigDecimal(1), teaspoonUom))
+                .addIngredient(new Ingredient("salt", new BigDecimal(".5"), teaspoonUom))
+                .addIngredient(new Ingredient("clove of Garlic, Choppedr", new BigDecimal(1), eachUom))
                 .addIngredient(new Ingredient("finely grated orange zestr", new BigDecimal(1), tablespoonUom))
                 .addIngredient(new Ingredient("fresh-squeezed orange juice", new BigDecimal(3), tablespoonUom))
-                .addIngredient(new Ingredient("Olive Oil", new BigDecimal(2), tablespoonUom))
+                .addIngredient(new Ingredient("olive Oil", new BigDecimal(2), tablespoonUom))
                 .addIngredient(new Ingredient("boneless chicken thighs", new BigDecimal(4), tablespoonUom))
                 .addIngredient(new Ingredient("small corn tortillasr", new BigDecimal(8), eachUom))
                 .addIngredient(new Ingredient("packed baby arugula", new BigDecimal(3), cupUom))
@@ -148,8 +151,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 .addIngredient(new Ingredient("radishes, thinly sliced", new BigDecimal(4), eachUom))
                 .addIngredient(new Ingredient("cherry tomatoes, halved", new BigDecimal(".5"), pintUom))
                 .addIngredient(new Ingredient("red onion, thinly sliced", new BigDecimal(".25"), eachUom))
-                .addIngredient(new Ingredient("Roughly chopped cilantro", new BigDecimal(4), eachUom))
-                .addIngredient(new Ingredient("cup sour cream thinned with 1/4 cup milk", new BigDecimal(4), cupUom))
+                .addIngredient(new Ingredient("roughly chopped cilantro", new BigDecimal(4), eachUom))
+                .addIngredient(new Ingredient("sour cream thinned with 1/4 cup milk", new BigDecimal(4), cupUom))
                 .addIngredient(new Ingredient("lime, cut into wedges", new BigDecimal(4), eachUom));
 
         tacosRecipe.getCategories().add(americanCategory);

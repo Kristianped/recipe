@@ -33,4 +33,15 @@ public class Ingredient {
         this.unitOfMeasure = unitOfMeasure;
         this.recipe = recipe;
     }
+
+    public String getAmountString() {
+        if (isInteger(amount))
+            return String.valueOf(amount.intValue());
+
+        return String.valueOf(amount.doubleValue());
+    }
+
+    private boolean isInteger(BigDecimal bigDecimal) {
+        return bigDecimal.stripTrailingZeros().scale() <= 0;
+    }
 }
