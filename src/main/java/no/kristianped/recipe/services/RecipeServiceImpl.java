@@ -5,6 +5,7 @@ import no.kristianped.recipe.commands.RecipeCommand;
 import no.kristianped.recipe.converters.RecipeCommandToRecipe;
 import no.kristianped.recipe.converters.RecipeToRecipeCommand;
 import no.kristianped.recipe.domain.Recipe;
+import no.kristianped.recipe.exceptions.NotFoundException;
 import no.kristianped.recipe.repositories.RecipeRepository;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findById(long l) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(l);
 
-        return recipeOptional.orElseThrow(() -> new RuntimeException("Could not find recipe with ID " + l));
+        return recipeOptional.orElseThrow(() -> new NotFoundException("Could not find recipe with ID " + l));
     }
 
     @Override

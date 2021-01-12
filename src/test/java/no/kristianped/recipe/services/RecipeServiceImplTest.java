@@ -3,6 +3,7 @@ package no.kristianped.recipe.services;
 import no.kristianped.recipe.converters.RecipeCommandToRecipe;
 import no.kristianped.recipe.converters.RecipeToRecipeCommand;
 import no.kristianped.recipe.domain.Recipe;
+import no.kristianped.recipe.exceptions.NotFoundException;
 import no.kristianped.recipe.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class RecipeServiceImplTest {
@@ -34,6 +34,19 @@ class RecipeServiceImplTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
+    }
+
+    @Test
+    void getRecipeByIdNotFound() {
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        assertThrows(NotFoundException.class, () -> {
+            Recipe recipeReturned = recipeService.findById(1L);
+        });
+
+
     }
 
     @Test
