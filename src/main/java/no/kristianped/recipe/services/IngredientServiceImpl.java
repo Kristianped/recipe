@@ -6,6 +6,7 @@ import no.kristianped.recipe.converters.IngredientCommandToIngredient;
 import no.kristianped.recipe.converters.IngredientToIngredientCommand;
 import no.kristianped.recipe.domain.Ingredient;
 import no.kristianped.recipe.domain.Recipe;
+import no.kristianped.recipe.exceptions.NotFoundException;
 import no.kristianped.recipe.repositories.RecipeRepository;
 import no.kristianped.recipe.repositories.UnitOfMeasureRepository;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class IngredientServiceImpl implements IngredientService {
                 ingredientFound.setAmount(command.getAmount());
                 ingredientFound.setUnitOfMeasure(unitOfMeasureRepository
                         .findById(command.getUnitOfMeasure().getId())
-                        .orElseThrow(() -> new RuntimeException("UOM NOT FOUND"))); //todo address this
+                        .orElseThrow(() -> new NotFoundException("UOM NOT FOUND"))); //todo address this
             } else {
                 //add new Ingredient
                 Ingredient ingredient = ingredientCommandToIngredient.convert(command);
@@ -98,7 +99,7 @@ public class IngredientServiceImpl implements IngredientService {
             }
         }
 
-        throw new RuntimeException("Could not find ingredient with ID: " + ingredientId);
+        throw new NotFoundException("Could not find ingredient with ID: " + ingredientId);
     }
 
     @Override
