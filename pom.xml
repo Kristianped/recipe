@@ -51,6 +51,7 @@
             <artifactId>lombok</artifactId>
             <version>1.18.16</version>
         </dependency>
+
         <!-- webjars -->
         <dependency>
             <groupId>org.webjars</groupId>
@@ -63,6 +64,16 @@
             <version>3.4.1</version>
         </dependency>
         <!-- end of webjars -->
+
+        <!-- Validator -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.1.6.Final</version>
+        </dependency>
+        <!-- End of Validator -->
+
+
     </dependencies>
 
     <build>
