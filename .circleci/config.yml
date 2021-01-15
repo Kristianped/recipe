@@ -41,8 +41,9 @@ jobs:
 
       # run tests!
       - run: mvn clean integration-test
+
       - store_test_results:
-        - path: /target/surefire-reports
+          path: target/surefire-reports
 
       #Codecov integration
     -run:
