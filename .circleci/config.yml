@@ -40,7 +40,8 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # run tests!
-      - run: mvn integration-test
+      - run: mvn clean test
+      - run: mvn clean integration-test
 
       #Codecov integration
     -run:
