@@ -7,10 +7,7 @@ orbs:
 workflows:
   maven_test:
     jobs:
-      - maven/test # checkout, build, test, and upload test results
-        test_results_path: target/my-reports
-
-  build:
-    steps:
+      - maven/test:
+        test_results_path: '/target/my-reports'
       - codecov/upload:
-          file: { { target/my-reports } }
+        file: { { target/my-reports } }
