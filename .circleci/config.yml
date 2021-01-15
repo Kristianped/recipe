@@ -48,7 +48,7 @@ jobs:
           path: target/site/jacoco/index.html
 
 
-      #Codecov integration
-      - run:
-        name: Send to CodeCov
-        command: bash <(curl -s https://codecov.io/bash)
+    #Codecov integration
+    - run:
+      name: Send to CodeCov
+      command: bash <(curl -s https://codecov.io/bash)
