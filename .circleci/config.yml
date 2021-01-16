@@ -7,7 +7,7 @@ jobs:
   test:
     docker:
       # specify the version you desire here
-      - image: circleci/openjdk:11-browsers-legacy
+      - image: circleci/openjdk:11
 
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
@@ -49,10 +49,10 @@ jobs:
 
       #Codecov integration
       - run:
-        name: Send to CodeCov
-        command: bash <(curl -s https://codecov.io/bash)
+          name: Send to CodeCov
+          command: bash <(curl -s https://codecov.io/bash)
 
-workflows:
-  test:
-    jobs:
-      - test
+  workflows:
+    test:
+      jobs:
+        - test
