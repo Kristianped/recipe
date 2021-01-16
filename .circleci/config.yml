@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  test:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:11-browsers-legacy
@@ -47,8 +47,12 @@ jobs:
       - store_artifacts:
           path: target/site/jacoco/index.html
 
-
     #Codecov integration
-    - run:
-      name: Send to CodeCov
-      command: bash <(curl -s https://codecov.io/bash)
+      - run:
+        name: Send to CodeCov
+        command: bash <(curl -s https://codecov.io/bash)
+
+workflows:
+  test:
+    jobs:
+      - test
